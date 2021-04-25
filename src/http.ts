@@ -19,12 +19,17 @@ app.get("/",(req,res)=>{
 
 const http = createServer(app); //Create protocol http
 const io = new Server(http) //Create protocol ws
-
-io.on("connection", (socket: Socket)=>{
-  //console.log("Se conectou", socket.id);
-})
-
 app.use(express.json());
 app.use(routes);
+
+io.on("connection", (socket: Socket)=>{
+  console.log("Se conectou", socket.id);
+})
+
+app.get("/pages/client", (req, res) => {
+  return res.render("html/client.html")
+})
+
+
 
 export {http, io}
